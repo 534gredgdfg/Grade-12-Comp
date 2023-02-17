@@ -1,38 +1,158 @@
-﻿namespace Part_5._0_Decision_Structures
+﻿using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
+
+namespace Part_5._0_Decision_Structures
 {
     internal class Program
     {
         static void Main(string[] args)
+        {
+            string programType;
+            Console.WriteLine("Would you like to run ATM Program, Parking Program or Hurricane Program");
+            programType = Console.ReadLine().ToUpper();
+            if (programType == "ATM")
+            {
+                ATM();
+            }
+            else if (programType == "PARKING PROGRAM")
+            {
+                ParkingProgram();
+            }
+            else if (programType == "HURRICANE")
+            {
+                Hurricane();
+            }
+            else
+            {
+                Console.WriteLine("Program Failed");
+                Console.WriteLine("Invalid Input");
+            }
+        }   
 
+       
+            
+        public static void ATM()
         {
             Random rand = new Random();
             string transationType;
             double Balance = rand.Next(100, 150);
-            double fee;
+            double fee, withdrawNumber, billNumber, depositNumber;
             fee = 0.75;
-                       
-            Console.WriteLine("Bank of Blorb");
+            Console.WriteLine("");
+            Console.WriteLine("Welcome to the Bank of Blorb");
 
             Console.WriteLine($"Your initial balnce is ${Balance}");
-            Console.WriteLine("Please enter you transation type: deposit, withdraw, bill payment or an account balence update");
+            Console.WriteLine("Please enter you transation type: deposit, withdrawal, bill payment or an account balance update");
             transationType = Console.ReadLine().ToUpper();
+
             if (transationType == "DEPOSIT")
             {
                 Console.WriteLine("Enter the amount you wish add to your account");
-                double depositNumber = Convert.ToInt32(Console.ReadLine());
-                Balance += depositNumber;
-                Balance -= fee;
-                Console.WriteLine($"New balence is ${Balance}");
+                if (Double.TryParse(Console.ReadLine(), out depositNumber))
+                {
+
+                    if (depositNumber <= 0)
+                    {
+                        Console.WriteLine("Transaction Failed");
+                        Console.WriteLine("You can't deposit zero or negitive money");
+                    }
+                    else
+                    {
+                        Balance += depositNumber;
+                        Balance -= fee;
+                        Console.WriteLine($"New balance is ${Balance}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Transation Failed");
+                    Console.WriteLine("Invalid Input");
+                }
+               
+                    
             }
-            else if (transationType == "WITHDRAW")
+            else if (transationType == "WITHDRAWAL" || transationType == "WITHDRAW")
             {
-                Console.WriteLine("Enter the amount you wish to withdraw");
-                double withdrawNumber = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Enter the amount you wish to withdrawal");
+
+                if (Double.TryParse(Console.ReadLine(), out withdrawNumber))
+                
+                {
+                    if (withdrawNumber <= 5)
+                    {
+                        Console.WriteLine("Can't withdrawal less than $5, bank policy");
+                    }
+
+                    else if (withdrawNumber < Balance - fee) {
+                        Balance -= withdrawNumber;
+                        Balance -= fee;
+                        Console.WriteLine($"New balance is ${Balance}");
+
+                    }
+                    
+                    else
+                    {
+                        Console.WriteLine("Transaction Failed");
+                        Console.WriteLine("You dont have enough money");
+                    }
+ 
+                }
+                else
+                {
+                    Console.WriteLine("Transation Failed");
+                    Console.WriteLine("Invalid Input");
+                }
+
+            }
+            else if (transationType == "BILL PAYMENT"){
+                Console.WriteLine("How much is the bill you need to pay?");
+
+                if (Double.TryParse(Console.ReadLine(), out billNumber))
+                {
+                    if (billNumber > Balance)
+                    {
+                        Console.WriteLine("Transation Failed");
+                        Console.WriteLine("You do not have enough money in your account");
+                    }
+                    else if (billNumber < Balance + fee)
+                    {
+                        Balance -= billNumber;
+                        Balance -= fee;
+                        Console.WriteLine($"{billNumber} was removed form your account to pay your bill");
+                        Console.WriteLine($"New balance is ${Balance}");
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("Transation Failed");
+                    Console.WriteLine("Invalid Input");
+                }
+
+            }
+            else if (transationType == "BALANCE UPDATE" || transationType == "ACCOUNT BALANCE UPDATE" || transationType == "UPDATE")
+            {
+                Balance -= fee;
+                Console.WriteLine($"Your balance is ${Balance}");
+            }
+            else
+            {
+                Console.WriteLine("Transation Failed");
+                Console.WriteLine("Invalid Input");
             }
 
 
         }
+        public static void ParkingProgram()
+        {
+            Console.WriteLine("Welcome to our Parking Garage");
+        }
+        public static void Hurricane()
+        {
+            Console.WriteLine("Welcome to Hurricane");
+        }
 
-      
+
+
     }
 }
