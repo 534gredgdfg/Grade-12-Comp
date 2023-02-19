@@ -140,12 +140,37 @@ namespace Part_5._0_Decision_Structures
                 Console.WriteLine("Transation Failed");
                 Console.WriteLine("Invalid Input");
             }
-
-
         }
+
         public static void ParkingProgram()
         {
+            int charge;
             Console.WriteLine("Welcome to our Parking Garage");
+            Console.WriteLine("Please enter number of miniutes parked:");
+            if (Int32.TryParse(Console.ReadLine(), out parkedhours))
+            {
+                if (parkedhours <= 0)
+                {
+                    Console.WriteLine("You parked for less than 0 miniutes");
+                    Console.WriteLine("No Charge");
+
+                }
+                else if (parkedhours <= 60)
+                {
+                    charge += 4;
+                    Console.WriteLine($"You were charged ${charge}");
+                }
+                else if (parkedhours > 60)
+                    charge += 4;
+                    charge += 2;
+                    Console.WriteLine($"You were charged ${charge}");
+
+            }
+            else
+            {
+                Console.WriteLine("Transation Failed");
+                Console.WriteLine("Invalid Input");
+            }
         }
         public static void Hurricane()
         {
