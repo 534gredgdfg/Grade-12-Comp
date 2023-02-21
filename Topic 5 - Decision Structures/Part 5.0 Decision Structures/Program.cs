@@ -10,15 +10,15 @@ namespace Part_5._0_Decision_Structures
             string programType;
             Console.WriteLine("Would you like to run ATM Program, Parking Program or Hurricane Program");
             programType = Console.ReadLine().ToUpper();
-            if (programType == "ATM")
+            if (programType == "ATM" || programType == "A")
             {
                 ATM();
             }
-            else if (programType == "PARKING PROGRAM")
+            else if (programType == "PARKING PROGRAM" || programType =="PARKING" || programType == "B")
             {
                 ParkingProgram();
             }
-            else if (programType == "HURRICANE")
+            else if (programType == "HURRICANE" || programType == "C")
             {
                 Hurricane();
             }
@@ -146,7 +146,8 @@ namespace Part_5._0_Decision_Structures
 
         public static void ParkingProgram()
         {
-            int charge;
+            int charge, parkedhours;
+            charge = 4;
             Console.WriteLine("Welcome to our Parking Garage");
             Console.WriteLine("Please enter number of miniutes parked:");
             if (Int32.TryParse(Console.ReadLine(), out parkedhours))
@@ -157,16 +158,63 @@ namespace Part_5._0_Decision_Structures
                     Console.WriteLine("No Charge");
 
                 }
-                else if (parkedhours <= 60)
+                else if (parkedhours <= 60 && parkedhours > 0)
                 {
-                    charge += 4;
-                    Console.WriteLine($"You were charged ${charge}");
+                    
+                    Console.WriteLine($"You parked for 1 hour and are charged for ${charge}");
                 }
-                else if (parkedhours > 60)
-                    charge += 4;
+                else if (parkedhours > 60 && parkedhours <= 120) { 
+                    
                     charge += 2;
-                    Console.WriteLine($"You were charged ${charge}");
+                    Console.WriteLine($"You parked for 2 hour and are charged for ${charge}");
+                }
+                else if (parkedhours > 120 && parkedhours <= 180)
+                {
 
+                    charge += 4;
+                    Console.WriteLine($"You parked for 3 hour and are charged for ${charge}");
+                }
+                else if (parkedhours > 180 && parkedhours <= 240)
+                {
+
+                    charge += 8;
+                    Console.WriteLine($"You parked for 4 hour and are charged for ${charge}");
+                }
+                else if (parkedhours > 240 && parkedhours <= 300)
+                {
+
+                    charge += 10;
+                    Console.WriteLine($"You parked for 5 hour and are charged for ${charge}");
+                }
+                else if (parkedhours > 300 && parkedhours <= 360)
+                {
+
+                    charge += 12;
+                    Console.WriteLine($"You parked for 6 hour and are charged for ${charge}");
+                }
+                else if (parkedhours > 360 && parkedhours <= 420)
+                {
+
+                    charge += 14;
+                    Console.WriteLine($"You parked for 7 hour and are charged for ${charge}");
+                }
+                else if (parkedhours > 420 && parkedhours <= 480)
+                {
+
+                    charge += 16;
+                    Console.WriteLine($"You parked for 8 hour and are charged for ${charge}");
+                }
+                
+                else if (parkedhours > 480)
+                {
+
+                    charge = 20;
+                    Console.WriteLine($"You parked for the charge limit and will be charged for ${charge}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input");
+                }
             }
             else
             {
@@ -176,7 +224,32 @@ namespace Part_5._0_Decision_Structures
         }
         public static void Hurricane()
         {
-            Console.WriteLine("Welcome to Hurricane");
+            int category;
+            Console.WriteLine("Welcome to our Hurricane Program");
+            Console.WriteLine("Enter a Hurricane category");
+            category = Convert.ToInt32(Console.ReadLine());
+
+            switch (category)
+            {
+                case 1:
+                    Console.WriteLine("Winds speeds of 74-95mph or 64-82kt or 119-153km/hr");
+                    break;
+                case 2:
+                    Console.WriteLine("Winds speeds of 96-110mph or 83-95kt or 154-177km/hr");
+                    break;
+                case 3:
+                    Console.WriteLine("Winds speeds of 74-95mph or 64-82kt or 119-153km/hr");
+                    break;
+                case 4:
+                    Console.WriteLine("Winds speeds of 74-95mph or 64-82kt or 119-153km/hr");
+                    break;
+                case 5:
+                    Console.WriteLine("Winds speeds of 74-95mph or 64-82kt or 119-153km/hr");
+                    break;
+                default:
+                    Console.WriteLine("That was not an option");
+                    break;
+            }
         }
 
 
