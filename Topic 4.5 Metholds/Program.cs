@@ -8,7 +8,7 @@ namespace Topic_4._5_Metholds
         static void Main(string[] args)
         {
             string programType;
-            Console.WriteLine("Would you like to run  greetings, animal, bye or Joke?");
+            Console.WriteLine("Would you like to run greetings, animal, bye or Joke?");
             programType = Console.ReadLine().ToUpper();
             if (programType == "ART")
             {
@@ -39,7 +39,7 @@ namespace Topic_4._5_Metholds
         }
         static void animal()
         {
-            Console.WriteLine("");
+            Console.WriteLine("             _,--\"\"--,_\r\n        _,,-\"          \\\r\n    ,-e\"                ;\r\n   (*             \\     |\r\n    \\o\\     __,-\"  )    |\r\n     `,_   (((__,-\"     L___,,--,,__\r\n        ) ,---\\  /\\    / -- '' -'-' )\r\n      _/ /     )_||   /---,,___  __/\r\n     \"\"\"\"     \"\"\"\"|_ /         \"\"\r\n                  \"\"\"\"");
         }
         static void bye()
         {
