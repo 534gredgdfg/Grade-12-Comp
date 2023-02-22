@@ -166,43 +166,43 @@ namespace Part_5._0_Decision_Structures
                 else if (parkedhours > 60 && parkedhours <= 120) { 
                     
                     charge += 2;
-                    Console.WriteLine($"You parked for 2 hour and are charged for ${charge}");
+                    Console.WriteLine($"You parked for 2 hours and are charged for ${charge}");
                 }
                 else if (parkedhours > 120 && parkedhours <= 180)
                 {
 
                     charge += 4;
-                    Console.WriteLine($"You parked for 3 hour and are charged for ${charge}");
+                    Console.WriteLine($"You parked for 3 hours and are charged for ${charge}");
                 }
                 else if (parkedhours > 180 && parkedhours <= 240)
                 {
 
                     charge += 8;
-                    Console.WriteLine($"You parked for 4 hour and are charged for ${charge}");
+                    Console.WriteLine($"You parked for 4 hours and are charged for ${charge}");
                 }
                 else if (parkedhours > 240 && parkedhours <= 300)
                 {
 
                     charge += 10;
-                    Console.WriteLine($"You parked for 5 hour and are charged for ${charge}");
+                    Console.WriteLine($"You parked for 5 hours and are charged for ${charge}");
                 }
                 else if (parkedhours > 300 && parkedhours <= 360)
                 {
 
                     charge += 12;
-                    Console.WriteLine($"You parked for 6 hour and are charged for ${charge}");
+                    Console.WriteLine($"You parked for 6 hours and are charged for ${charge}");
                 }
                 else if (parkedhours > 360 && parkedhours <= 420)
                 {
 
                     charge += 14;
-                    Console.WriteLine($"You parked for 7 hour and are charged for ${charge}");
+                    Console.WriteLine($"You parked for 7 hours and are charged for ${charge}");
                 }
                 else if (parkedhours > 420 && parkedhours <= 480)
                 {
 
                     charge += 16;
-                    Console.WriteLine($"You parked for 8 hour and are charged for ${charge}");
+                    Console.WriteLine($"You parked for 8 hours and are charged for ${charge}");
                 }
                 
                 else if (parkedhours > 480)
