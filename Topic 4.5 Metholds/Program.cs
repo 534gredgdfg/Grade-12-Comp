@@ -10,7 +10,7 @@ namespace Topic_4._5_Metholds
             string programType;
             Console.WriteLine("Would you like to run greetings, animal, bye or Joke?");
             programType = Console.ReadLine().ToUpper();
-            if (programType == "ART")
+            if (programType == "GREETINGS")
             {
                 grettings();
             }
