@@ -226,7 +226,7 @@ namespace Part_5._0_Decision_Structures
         {
             int category;
             Console.WriteLine("Welcome to our Hurricane Program");
-            Console.WriteLine("Enter a Hurricane category");
+            Console.WriteLine("Enter the categorty of Hurricane");
             category = Convert.ToInt32(Console.ReadLine());
 
             switch (category)
@@ -238,13 +238,13 @@ namespace Part_5._0_Decision_Structures
                     Console.WriteLine("Winds speeds of 96-110mph or 83-95kt or 154-177km/hr");
                     break;
                 case 3:
-                    Console.WriteLine("Winds speeds of 74-95mph or 64-82kt or 119-153km/hr");
+                    Console.WriteLine("Winds speeds of 111-130mph or 96-113kt or 178-209km/hr");
                     break;
                 case 4:
-                    Console.WriteLine("Winds speeds of 74-95mph or 64-82kt or 119-153km/hr");
+                    Console.WriteLine("Winds speeds of 131-155mph or 114-135kt or 210-249km/hr");
                     break;
                 case 5:
-                    Console.WriteLine("Winds speeds of 74-95mph or 64-82kt or 119-153km/hr");
+                    Console.WriteLine("Winds speeds greater than 155mph or 135kt or 248km/hr");
                     break;
                 default:
                     Console.WriteLine("That was not an option");
