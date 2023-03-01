@@ -7,166 +7,196 @@ namespace Dice_Game
     {
         static void Main(string[] args)
         {
-            Double Balence, betNumber;
+            double Balance, betNumber;
             int betType, roll1, roll2, sum;
-            Balence = 100.00;
+            string restart;
+            Balance = 100.00;
             Die rolling = new Die();
+            bool  done, runProgram;
+            done = false;
             
-            Console.WriteLine($"You initial balence is ${Balence}");
-            Console.WriteLine("");
-            Console.WriteLine("Would you like to bet on:");
-            Console.WriteLine("1.Doubles (Win double your bet)");
-            Console.WriteLine("2.Not Doubles (Win half your bet)");
-            Console.WriteLine("3.Even Sum (Win your bet)");
-            Console.WriteLine("4.Odd Sum (Win your bet)");
-            Console.WriteLine("");
-
-
-            if (Int32.TryParse(Console.ReadLine(), out betType) && betType <=4 && betType >= 1)
+            while (done != true)
             {
-                Console.WriteLine("How much would you like to bet?");
-                if (Double.TryParse(Console.ReadLine(), out betNumber))
+
+
+                Console.WriteLine($"You initial balance is ${Balance}");
+                Console.WriteLine("");
+                Console.WriteLine("Would you like to bet on:");
+                Console.WriteLine("1.Doubles (Win double your bet)");
+                Console.WriteLine("2.Not Doubles (Win half your bet)");
+                Console.WriteLine("3.Even Sum (Win your bet)");
+                Console.WriteLine("4.Odd Sum (Win your bet)");
+                Console.WriteLine("");
+
+
+                if (Int32.TryParse(Console.ReadLine(), out betType) && betType <= 4 && betType >= 1)
                 {
-                    
-                    
-                    betNumber = Math.Round(betNumber, 2);
-                    if (betNumber < Balence || betNumber > 0)
+
+                    Console.Write("How much would you like to bet? $");
+                    if (double.TryParse(Console.ReadLine(), out betNumber))
                     {
-                        if (betNumber >= Balence)
+
+
+                        betNumber = Math.Round(betNumber, 2);
+                        if (betNumber < Balance || betNumber > 0)
                         {
-                            betNumber = 100.00;
-                        }
-                        else if (betNumber <= 0)
-                        {
-                            betNumber = 0.00;
-                        }
-                        Console.WriteLine($"Your betting ${betNumber}");
-                        Console.WriteLine("");
-                        Console.WriteLine("Press Enter to roll dice:");
-                        Console.ReadLine();
-
-                        Console.WriteLine($"You rolled a {rolling}");
-                        rolling.DrawRoll();
-                        roll1 = rolling.Roll;
-
-                        Thread.Sleep(700);
-
-                        rolling.RollDie();
-                        Console.WriteLine($"And rolled a {rolling}");
-                        rolling.DrawRoll();
-                        roll2 = rolling.Roll;
-                        sum = roll1 + roll2;
-
-                        Thread.Sleep(700);
-
-                        if (betType == 1)
-                        {
-                            Console.WriteLine("");
-                            Console.WriteLine("You bet on doubles");
-                            if (roll1 == roll2)
+                            if (betNumber >= Balance)
                             {
-                                Balence += betNumber * 2;
-                                Console.WriteLine("You Win!");
-                                Console.WriteLine($"You double yor money and your new balence is ${Balence}");
+                                betNumber = Balance;
+                            }
+                            else if (betNumber <= 0)
+                            {
+                                betNumber = 0.00;
+                            }
+                            Console.WriteLine($"Your betting ${betNumber}");
+                            Console.WriteLine("");
+                            Console.WriteLine("Press Enter to roll dice:");
+                            Console.ReadLine();
+                            Console.WriteLine("Rolling!");
+                            Thread.Sleep(1000);
+                            Console.WriteLine("");
+
+                            Console.WriteLine($"You rolled a {rolling}");
+                            rolling.DrawRoll();
+                            roll1 = rolling.Roll;
+
+                            Thread.Sleep(700);
+                            Console.WriteLine("");
+                            rolling.RollDie();
+                            Console.WriteLine($"And rolled a {rolling}");
+                            rolling.DrawRoll();
+                            roll2 = rolling.Roll;
+                            sum = roll1 + roll2;
+
+                            Thread.Sleep(900);
+
+                            if (betType == 1)
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("You bet on doubles");
+                                if (roll1 == roll2)
+                                {
+                                    Balance += betNumber * 2;
+                                    Console.WriteLine("You Win!");
+                                    Console.WriteLine($"You double yor money and your new balance is ${Balance}");
+                                }
+                                else
+                                {
+                                    Balance -= betNumber;
+                                    Console.WriteLine("You Lose!");
+                                    Console.WriteLine($"Your new balance is ${Balance}");
+                                }
+                            }
+                            else if (betType == 2)
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("You bet on not doubles");
+                                if (roll1 == roll2)
+                                {
+                                    Balance -= betNumber;
+                                    Console.WriteLine("You Lose!");
+                                    Console.WriteLine($"Your new balance is ${Balance}");
+
+                                }
+                                else
+                                {
+                                    Balance += betNumber / 2;
+                                    Console.WriteLine("You Win!");
+                                    Console.WriteLine($"Your new balance is ${Balance}");
+                                }
+                            }
+                            else if (betType == 3)
+                            {
+
+                                Console.WriteLine("");
+                                Console.WriteLine("You bet on an even sum");
+                                Console.WriteLine($"The total sum of the dice is {sum}");
+
+                                if (sum % 2 == 0)
+                                {
+
+                                    Balance += betNumber;
+
+                                    Console.WriteLine("Number is even. You Win!");
+                                    Console.WriteLine($"Your new total is ${Balance}");
+                                }
+                                else
+                                {
+                                    Balance -= betNumber;
+                                    Console.WriteLine("Your number is odd");
+                                    Console.WriteLine($"Your new balance is ${Balance}");
+
+                                }
+
+
+
+                            }
+                            else if (betType == 4)
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("You bet on odd sum");
+                                if (sum % 2 == 0)
+                                {
+
+                                    Balance -= betNumber;
+
+                                    Console.WriteLine("Number is even. You Lose!");
+                                    Console.WriteLine($"Your new total is ${Balance}");
+                                }
+                                else
+                                {
+                                    Balance += betNumber;
+                                    Console.WriteLine("Your number is odd. You Win!");
+                                    Console.WriteLine($"Your new balance is ${Balance}");
+
+                                }
+                             
                             }
                             else
                             {
-                                Balence -= betNumber;
-                                Console.WriteLine("You Lose!");
-                                Console.WriteLine($"Your new balence is ${Balence}");
-                            }
-                        }
-                        else if (betType == 2)
-                        {
-                            Console.WriteLine("");
-                            Console.WriteLine("You bet on not doubles");
-                            if (roll1 == roll2)
-                            {
-                                Balence -= betNumber;
-                                Console.WriteLine("You Lose!");
-                                Console.WriteLine($"Your new balence is ${Balence}");
-
-                            }
-                            else
-                            {
-                                Balence += betNumber / 2;
-                                Console.WriteLine("You Win!");
-                                Console.WriteLine($"Your new balence is ${Balence}");
-                            }
-                        }
-                        else if (betType == 3)
-                        {
-
-                            Console.WriteLine("");
-                            Console.WriteLine("You bet on an even sum");
-                            Console.WriteLine($"The total sum of the dice is {sum}");
-
-                            if (sum % 2 == 0)
-                            {
-
-                                Balence += betNumber;
-
-                                Console.WriteLine("Number is even. You Win!");
-                                Console.WriteLine($"Your new total is ${Balence}");
-                            }
-                            else
-                            {
-                                Balence -= betNumber;
-                                Console.WriteLine("Your number is odd");
-                                Console.WriteLine($"Your new balence is ${Balence}");
-
+                                Console.WriteLine("Invalid Input");
                             }
 
-
-
-                        }
-                        else if (betType == 4)
-                        {
-                            Console.WriteLine("");
-                            Console.WriteLine("You bet on odd sum");
-                            if (sum % 2 == 0)
-                            {
-
-                                Balence -= betNumber;
-
-                                Console.WriteLine("Number is even. You Lose!");
-                                Console.WriteLine($"Your new total is ${Balence}");
-                            }
-                            else
-                            {
-                                Balence += betNumber;
-                                Console.WriteLine("Your number is odd. You Win!");
-                                Console.WriteLine($"Your new balence is ${Balence}");
-
-                            }
                         }
                         else
                         {
                             Console.WriteLine("Invalid Input");
                         }
-
                     }
                     else
                     {
-                        Console.WriteLine("Invalid Input");
+                        Console.WriteLine("That is not a valid bet");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("That is not a valid bet");
+                    Console.WriteLine("That is not a valid choice");
+
                 }
-            }
-            else
-            {
-                Console.WriteLine("That is not a valid choice");
-
-            }
-            
-
-            
-
-
+                Thread.Sleep(1000);
+                Console.WriteLine("");
+                Console.Write("Would you like to play again? ");
+                restart = Console.ReadLine().ToUpper();
+                if (restart == "YES" && Balance > 0)
+                {
+                    done = false;
+                }
+                else if (Balance <= 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("You have insuffincient funds");
+                    Console.WriteLine("");
+                    Console.WriteLine("See you next time!");
+                    done = true;
+                }
+                else
+                {
+                    done = true;
+                    Console.WriteLine("");
+                    Console.WriteLine("See you next time!");
+                }
                 
+            }
 
 
         } 
