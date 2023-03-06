@@ -18,7 +18,7 @@ namespace Dice_Game
             while (done != true)
             {
 
-
+                Console.WriteLine("");
                 Console.WriteLine($"You initial balance is ${Balance}");
 
                 do
