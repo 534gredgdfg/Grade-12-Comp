@@ -20,7 +20,7 @@ namespace Part_6___Loops
                 Console.WriteLine("3 - Oddsum");
                 Console.WriteLine("");
                 Console.Write("Run program 1, 2, 3, 4, 5: ");
-
+                
                 program = Console.ReadLine();
 
                 switch (program)
@@ -45,9 +45,10 @@ namespace Part_6___Loops
                     default:
                         Console.WriteLine("Not an option, Choose between 1-5");
                         break;
-                        
 
+                
                 }
+                Console.WriteLine("");
             }
 
         }
@@ -64,6 +65,10 @@ namespace Part_6___Loops
 
             Console.WriteLine("");
             Thread.Sleep(1000);
+            Console.WriteLine("Welcome to Prompter");
+            Thread.Sleep(1000);
+            Console.WriteLine("");
+
             Console.Write("Enter a minimum value: ");
 
             while (!Int32.TryParse(Console.ReadLine(), out minValue))
@@ -121,23 +126,79 @@ namespace Part_6___Loops
         {
             //Percent Passing
             int DiffScores, Scores;
-            int i = 1;
+            double percent, correct;
+            bool done;
+            int i = 0;
+            Scores = 0;
+            correct = 0;
+            done = false;
+
+            Console.WriteLine("");
+            Thread.Sleep(1000);
+            Console.WriteLine("Welcome to Percent Passing");
+            Thread.Sleep(1000);
+            Console.WriteLine("");
             
-            Console.Write("How many differnt scores do you have? ");
-            DiffScores = Convert.ToInt32(Console.ReadLine());
-            
-            while (DiffScores >= i)
+            do
             {
                 Console.Write("Enter Score: ");
-                Scores = Convert.ToInt32(Console.ReadLine());
+
+
+                while (!Int32.TryParse(Console.ReadLine(), out Scores))
+                    Console.Write("Enter Score: ");
+
+
                 i = i + 1;
                 
+                if (Scores >= 70)
+                {
+                    correct += 1;
+                }
+                
+                
+                percent = correct / i ;
+
+                if (percent >= 1)
+                {
+                    percent = 1;
+                }
+                else if (percent <= 0)
+                {
+                    percent = 0;
+                }
+                percent = (percent * 100);
+                percent = Math.Round(percent, 2);
+
+
+                Console.WriteLine("");
+                Thread.Sleep(700);
+                Console.WriteLine($"{percent}% of your scores are over 70.");
+                Thread.Sleep(700);
+                Console.WriteLine("");
+
+                if (i % 2 != 0)
+                {
+                    Console.WriteLine("");
+                    Thread.Sleep(700);
+                    Console.WriteLine($"Do you want to quit?");
+                    Thread.Sleep(700);
+                    Console.WriteLine("");
+                }
             }
-            //Console.Write(Scores);
+            while (!done);
+
+            
+            
         }
         static void OddSum()
         {
             int number, sum;
+
+            Console.WriteLine("");
+            Thread.Sleep(1000);
+            Console.WriteLine("Welcome to Oddsum");
+            Thread.Sleep(1000);
+            
             Console.WriteLine("");
             Console.Write("Enter a number: ");
 
