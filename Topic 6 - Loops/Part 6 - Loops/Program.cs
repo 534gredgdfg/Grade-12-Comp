@@ -18,6 +18,7 @@ namespace Part_6___Loops
                 Console.WriteLine("1 - Prompter");
                 Console.WriteLine("2 - Percent Passing");
                 Console.WriteLine("3 - Oddsum");
+                Console.WriteLine("4 - Random Numbers");
                 Console.WriteLine("");
                 Console.Write("Run program 1, 2, 3, 4, 5: ");
                 
@@ -40,6 +41,10 @@ namespace Part_6___Loops
 
                     case "3":
                         OddSum();
+                        break;
+
+                    case "4":
+                        RandomNumbers();
                         break;
 
                     default:
@@ -95,10 +100,10 @@ namespace Part_6___Loops
                 }
 
                     
-                if (minValue > maxValue)
+                if (minValue >= maxValue)
                 {
                     Console.WriteLine("");
-                    Console.WriteLine("Minimum value cannot be greater than maximum");
+                    Console.WriteLine("Minimum value cannot be greater or equal to maximum");
                     Console.WriteLine("Try again");
                 }
                 else
@@ -117,7 +122,11 @@ namespace Part_6___Loops
                 Console.WriteLine("");
                 Thread.Sleep(700);
                 Console.Write($"Enter a number between {minValue} and {maxValue}: ");
-                userValue = Convert.ToInt32(Console.ReadLine());
+                while (!Int32.TryParse(Console.ReadLine(), out userValue))
+                {
+                    Console.WriteLine("Enter a valid response! ");
+                    Console.Write($"Enter a number between {minValue} and {maxValue}: ");
+                }
             } while (userValue > maxValue || userValue < minValue);
             Console.WriteLine("DONE!");
         }
@@ -125,7 +134,8 @@ namespace Part_6___Loops
         static void PercentPassing()
         {
             //Percent Passing
-            int DiffScores, Scores;
+            int Scores;
+            string exit;
             double percent, correct;
             bool done;
             int i = 0;
@@ -172,18 +182,23 @@ namespace Part_6___Loops
 
                 Console.WriteLine("");
                 Thread.Sleep(700);
-                Console.WriteLine($"{percent}% of your scores are over 70.");
+                Console.WriteLine($"{percent}% of scores are above 70!");
                 Thread.Sleep(700);
                 Console.WriteLine("");
 
-                if (i % 2 != 0)
+                
+                Console.WriteLine("");
+                Thread.Sleep(700);
+                Console.Write("Would you like to quit? ");
+                exit = Console.ReadLine().ToUpper();
+                Thread.Sleep(700);
+                Console.WriteLine("");
+                if (exit == "YES" || exit == "Y")
                 {
-                    Console.WriteLine("");
-                    Thread.Sleep(700);
-                    Console.WriteLine($"Do you want to quit?");
-                    Thread.Sleep(700);
-                    Console.WriteLine("");
+                    done = true;
                 }
+                
+                
             }
             while (!done);
 
@@ -197,9 +212,9 @@ namespace Part_6___Loops
             Console.WriteLine("");
             Thread.Sleep(1000);
             Console.WriteLine("Welcome to Oddsum");
-            Thread.Sleep(1000);
-            
+            Thread.Sleep(1000);           
             Console.WriteLine("");
+
             Console.Write("Enter a number: ");
 
             while (!Int32.TryParse(Console.ReadLine(), out number))
@@ -216,6 +231,58 @@ namespace Part_6___Loops
             }
             Thread.Sleep(1000);
             Console.WriteLine($"The sum of all odd values between 1 and { number } is {sum}.");
+        }
+        static void RandomNumbers()
+        {
+            Random genorator = new Random();
+            int minNumber, maxNumber;
+            bool done;
+            done = false;
+            Console.WriteLine("");
+            Thread.Sleep(1000);
+            Console.WriteLine("Welcome to Random Numbers");
+            Thread.Sleep(1000);
+            Console.WriteLine("");
+
+            Console.Write("Enter a minimum number: ");
+            while (!Int32.TryParse(Console.ReadLine(), out minNumber))
+                Console.Write("Enter a valid minimum number: ");
+            do
+            {
+
+                Console.WriteLine("");
+                Thread.Sleep(1000);
+                Console.Write("Enter a maximum value: ");
+
+                while (!Int32.TryParse(Console.ReadLine(), out maxNumber))
+                {
+                    Console.WriteLine("");
+                    Thread.Sleep(1000);
+                    Console.Write("Enter a valid maximum value: ");
+                }
+
+
+                if (minNumber >= maxNumber)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Minimum value cannot be greater or equal to maximum");
+                    Console.WriteLine("Try again");
+                }
+                else
+                {
+
+                    done = true;
+                }
+
+
+            }
+            while (!done);
+
+            for (int i = 1; i <= 25; i++)
+            {
+                int randomNumber = genorator.Next(minNumber, maxNumber + 1);
+                Console.WriteLine($"{i}.   {randomNumber}");
+            }
         }
     }
 
