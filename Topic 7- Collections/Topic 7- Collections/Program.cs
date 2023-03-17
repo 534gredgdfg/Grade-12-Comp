@@ -13,7 +13,7 @@ namespace Topic_7__Collections
             done = false;
             do
             {
-                Console.WriteLine("Would you like to run Integer Program or String Program?");
+                Console.WriteLine("Would you like to Run Integer Program or String Program?");
                 string choice = Console.ReadLine().ToUpper();
                 if (choice == "INTEGER" || choice == "INTEGER PROGRAM" || choice == "1")
                 {
@@ -49,22 +49,26 @@ namespace Topic_7__Collections
             addedNumber = 0;
             doneCase4Choice = false;
             List<int> numbers = new List<int>();
-            Console.WriteLine("List: ");
-            numbers.Add(genorator.Next(10, 20));
+                        
             for (int i = 0; i < listValues; i++)
             {
-                numbers.Add(genorator.Next(10, 21));
-                
-                Console.Write($"{numbers[i]}, ");
+                numbers.Add(genorator.Next(10, 21));                               
             }
             do
             {
-
-
+                Thread.Sleep(1000);
+                Console.WriteLine();
+                
+                Console.WriteLine("--List--");
+                for (int i = 0; i < listValues; i++)
+                {
+                    
+                    Console.Write($"{numbers[i]}, ");
+                }
                 Thread.Sleep(1000);
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine("Choose a option from the list:");
+                Console.WriteLine("Choose a option:");
                 Console.WriteLine("1 - Sort List");
                 Console.WriteLine("2 - Make New Random List");
                 Console.WriteLine("3 - Remove a Number");
@@ -87,27 +91,20 @@ namespace Topic_7__Collections
                         Thread.Sleep(1000);
                         Console.WriteLine();
                         numbers.Sort();
-                        Console.WriteLine("The Sorted List Is: ");
-
-                        for (int i = 0; i < listValues; i++)
-                        {
-                            Console.Write($"{numbers[i]}, ");
-                        }
+                        
                         break;
 
                     case 2:
                         //New List
                         Console.WriteLine();
                         Console.WriteLine("Making New List...");
-                        Thread.Sleep(1000);
-                        Console.WriteLine();
-                        Console.WriteLine("The New List Is: ");
+                        
                         numbers.Clear();
 
                         for (int i = 0; i < listValues; i++)
                         {
                             numbers.Add(genorator.Next(10, 21));
-                            Console.Write($"{numbers[i]}, ");
+                            
                         }
                         break;
 
@@ -163,18 +160,6 @@ namespace Topic_7__Collections
 
                         numbers.Add(addedNumber);
                         listValues += 1;
-
-                        Thread.Sleep(1000);
-                        Console.WriteLine();                                              
-                        Console.WriteLine("The New List Is: ");                          
-                        for (int i = 0; i < listValues; i++)
-                        {                              
-                            Console.Write($"{numbers[i]}, ");
-                        }
-                        Thread.Sleep(1000);
-                        Console.WriteLine();
-                         
-
                         break;
 
                     case 5:
@@ -268,10 +253,11 @@ namespace Topic_7__Collections
         }
         static void String()
         {
-            bool done, vaildCase1, vaildCase2;
+            bool done, vaildCase1, vaildCase2, clearedList;
             done = false;
             vaildCase1 = false;
             vaildCase2 = false;
+            clearedList = false;
             string removeValue;
             int menuChoice, valuesInList, removedIndex;
             
@@ -281,32 +267,55 @@ namespace Topic_7__Collections
             vegtables.Add("CELERY");
             vegtables.Add("RADISH");
             vegtables.Add("CABBAGE");
+
+            
             do
             {
-                Thread.Sleep(1000);
-                Console.WriteLine();
+                if (vegtables.Count == 0)
+                    clearedList = true;
 
+                
+                
                 valuesInList = 0;
-                foreach (string v in vegtables)
+                if (clearedList == false)
                 {
-                    valuesInList += 1;
-                    Console.WriteLine($"{valuesInList} - {v}");
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
+                    Console.WriteLine("--Vegtables--");
+                    foreach (string v in vegtables)
+                    {
+                        valuesInList += 1;
+                        Console.WriteLine($"{valuesInList} - {v}");
+                    }
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
                 }
-                Thread.Sleep(1000);
-                Console.WriteLine();
-
-                Console.WriteLine("Would you like to:");
-                Console.WriteLine("1 - Remove Vegetable by Index");
-                Console.WriteLine("2 - Remove Vegtable by Value");
-                Console.WriteLine("3 - Search for Vegtable");
-                Console.WriteLine("4 - Add Vegtable");
-                Console.WriteLine("5 - Sort List");
-                Console.WriteLine("6 - Clear List");
-                Console.WriteLine("7 - Quit");
-
-                Console.Write("Choice: ");
-                while (!Int32.TryParse(Console.ReadLine(), out menuChoice))
-                    Console.Write("Enter a valid option: ");
+                 
+                if (clearedList == false)
+                {
+                    Console.WriteLine("Would you like to:");
+                    Console.WriteLine("1 - Remove Vegetable by Index");
+                    Console.WriteLine("2 - Remove Vegtable by Value");
+                    Console.WriteLine("3 - Search for Vegtable");
+                    Console.WriteLine("4 - Add Vegtable");
+                    Console.WriteLine("5 - Sort List");
+                    Console.WriteLine("6 - Clear List");
+                    Console.WriteLine("7 - Quit");
+                    Console.Write("Choice: ");
+                    while (!Int32.TryParse(Console.ReadLine(), out menuChoice))
+                        Console.Write("Enter a valid option: ");
+                }
+                else
+                {
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
+                    Console.WriteLine("The List is Empty");
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
+                    Console.WriteLine("You Must Add a Vegtable");
+                    menuChoice = 4;
+                }
+                    
                 switch (menuChoice)
                 {
                     case 1:
@@ -413,10 +422,54 @@ namespace Topic_7__Collections
 
                         break;
                     case 4:
+                        string addedVegtable;
+                        bool vaildCase4;
+                        
+                        do
+                        {
+                            vaildCase4 = true;
+                            Thread.Sleep(1000);
+                            Console.WriteLine();
+                            Console.WriteLine("Which Vegtable Would You Like to Add?");
+                            addedVegtable = Console.ReadLine().ToUpper();
+                            foreach (string v in vegtables)
+                            {
+                                if (addedVegtable == v)
+                                    vaildCase4 = false;
+
+                            }
+                            if (vaildCase4 == false)
+                            {
+                                Console.WriteLine();
+                                Console.Write($"{addedVegtable} is Already in the List. Enter a Vaild Option");
+                            }
+                        }
+                        while (!vaildCase4);
+                        vegtables.Add(addedVegtable);
+                        clearedList = false;
+                        Thread.Sleep(1000);
+                        Console.WriteLine();
+                        Console.WriteLine($"{addedVegtable} has been Added");
+
                         break;
+
                     case 5:
+                        Console.WriteLine();
+                        Console.WriteLine("Sorting List...");
+                        Thread.Sleep(1000);
+                        Console.WriteLine();
+                        vegtables.Sort();
+                        Console.WriteLine("The List is Sorted");
                         break;
+
                     case 6:
+                        Console.WriteLine();
+                        Console.WriteLine("Clearing List...");
+                        Thread.Sleep(1000);
+                        Console.WriteLine();
+                        vegtables.Clear();
+                        Console.WriteLine("The List is Cleared");
+                        
                         break;
                     case 7:
                         //Quit
