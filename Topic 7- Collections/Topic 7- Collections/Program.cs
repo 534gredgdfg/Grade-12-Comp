@@ -60,7 +60,7 @@ namespace Topic_7__Collections
                 Console.WriteLine();
                 
                 Console.WriteLine("--List--");
-                for (int i = 0; i < listValues; i++)
+                for (int i = 0; i < numbers.Count; i++)
                 {
                     
                     Console.Write($"{numbers[i]}, ");
@@ -116,12 +116,12 @@ namespace Topic_7__Collections
                             Console.Write("Enter a valid option: ");                           
                         
                         Occurences = 0;
-                        for (int i = 0; i < listValues; i++)
+                        for (int i = 0; i < numbers.Count; i++)
                         {
                             if (numbers[i] == removedNumber)
                             {
                                 Occurences += 1;
-                                listValues -= 1;
+                                
                             }
 
                         }
@@ -159,7 +159,7 @@ namespace Topic_7__Collections
                         while (!doneCase4Choice);
 
                         numbers.Add(addedNumber);
-                        listValues += 1;
+                        
                         break;
 
                     case 5:
@@ -172,7 +172,7 @@ namespace Topic_7__Collections
                         Console.Write("Which Number Would You Like to See the Amount of Occurences it Has? ");
                         while (!Int32.TryParse(Console.ReadLine(), out occurenceNumber))                       
                             Console.Write("Enter a valid option: ");
-                        for (int i = 0; i < listValues; i++)
+                        for (int i = 0; i < numbers.Count; i++)
                         {
                             if (numbers[i] == occurenceNumber)                            
                                 Occurences += 1;     
@@ -187,7 +187,7 @@ namespace Topic_7__Collections
                         //Largest Number
 
                         numbers.Sort();
-                        largestNumber = numbers[listValues];
+                        largestNumber = numbers[numbers.Count - 1];
                         Thread.Sleep(1000);
                         Console.WriteLine();
                         Console.WriteLine($"The Largest Number in the List is: {largestNumber}");
@@ -213,11 +213,11 @@ namespace Topic_7__Collections
                         int average, sum;
                         sum = 0;
                         average = 0;
-                        for (int i = 0; i < listValues; i++)
+                        for (int i = 0; i < numbers.Count; i++)
                         {
                             sum += numbers[i];
                         }
-                        average = sum / listValues;
+                        average = sum / numbers.Count;
 
                         Thread.Sleep(1000);
                         Console.WriteLine();
