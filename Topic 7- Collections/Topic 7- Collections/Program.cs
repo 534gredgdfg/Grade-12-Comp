@@ -49,7 +49,8 @@ namespace Topic_7__Collections
             addedNumber = 0;
             doneCase4Choice = false;
             List<int> numbers = new List<int>();
-                        
+            List<int> numbersTemp = new List<int>();
+
             for (int i = 0; i < listValues; i++)
             {
                 numbers.Add(genorator.Next(10, 21));                               
@@ -185,9 +186,13 @@ namespace Topic_7__Collections
 
                     case 6:
                         //Largest Number
-
-                        numbers.Sort();
-                        largestNumber = numbers[numbers.Count - 1];
+                        for (int i = 0; i < numbers.Count; i++)
+                        {
+                            numbersTemp.Add(numbers[i]);
+                        }
+                        numbersTemp.Sort();
+                        largestNumber = numbersTemp[numbers.Count - 1];
+                        numbersTemp.Clear();
                         Thread.Sleep(1000);
                         Console.WriteLine();
                         Console.WriteLine($"The Largest Number in the List is: {largestNumber}");
@@ -198,8 +203,13 @@ namespace Topic_7__Collections
 
                     case 7:
                         //Smallest Number
-                        numbers.Sort();
-                        smallestNumber = numbers[0];
+                        for (int i = 0; i < numbers.Count; i++)
+                        {
+                            numbersTemp.Add(numbers[i]);
+                        }
+                        numbersTemp.Sort();
+                        smallestNumber = numbersTemp[0];
+                        numbersTemp.Clear();                                                
                         Thread.Sleep(1000);
                         Console.WriteLine();
                         Console.WriteLine($"The Smallest Number in the List is: {smallestNumber}");
@@ -236,13 +246,6 @@ namespace Topic_7__Collections
                         done = true;
 
                         break;
-
-                  
-                    default:
-                        Console.WriteLine("Not an option");
-                        break;
-
-
                 }
             }
             while (!done);
