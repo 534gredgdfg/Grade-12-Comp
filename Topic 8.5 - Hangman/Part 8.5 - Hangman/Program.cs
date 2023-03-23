@@ -9,8 +9,9 @@ namespace Part_8._5___Hangman
         static void Main(string[] args)
         {
             Random rand = new Random();
-            int incorrect;
-            bool done;
+            int incorrect, difficulty;
+            bool done, createWord;
+            createWord = true;
             done = false;
             incorrect = 0;
             string userLetter;
@@ -19,31 +20,7 @@ namespace Part_8._5___Hangman
             Console.BackgroundColor = ConsoleColor.DarkGray;
             Console.Clear();
             string displayWord = "";
-            List<string> words = new List<string>();
-            words.Add("B E A V E R");
-            words.Add("H U N T E R");
-            words.Add("M A D D O X");
-            words.Add("W H E A T");
-            words.Add("P O W E R");
-            words.Add("S E A T");
-            words.Add("A I D S");
-            words.Add("F I T N E S S");
-            words.Add("M O T H E R");
-            words.Add("P E A N U T");
-            words.Add("P Y T H O N");
-            words.Add("W O N D E R F U L");
-            words.Add("P O W E R F U L");
-            string word = words[rand.Next(0, words.Count)];
-            switch (word.Length)
-            {
-                case 7: displayWord = "_ _ _ _"; break;
-                case 9: displayWord = "_ _ _ _ _"; break;
-                case 11: displayWord = "_ _ _ _ _ _"; break;
-                case 13: displayWord = "_ _ _ _ _ _ _"; break;
-                case 15: displayWord = "_ _ _ _ _ _ _ _"; break;
-                case 17: displayWord = "_ _ _ _ _ _ _ _ _"; break;
-
-            }
+            
             
             Console.WriteLine("Welcome to Hangman!");
             Thread.Sleep(1000);
@@ -55,8 +32,61 @@ namespace Part_8._5___Hangman
             Thread.Sleep(1000);
             Console.WriteLine();
             Console.WriteLine("Every wrong guess, a limb gets added to the Hangman");
+            Thread.Sleep(1000);
+            Console.WriteLine();
+            
             do
-            {
+            {   if (createWord == true)
+                {
+                    Console.Write("What difficulty would you like to play on, 1, 2 or 3? ");
+
+                    while (!Int32.TryParse(Console.ReadLine(), out difficulty))
+                        Console.Write("Please Enter 1, 2 or 3? ");
+                    if (difficulty > 3)
+                        difficulty = 3;
+                    else if (difficulty < 0)
+                        difficulty = 0;
+                    List<string> words = new List<string>();
+
+                    //Choose Scerect word based on difficulty
+                    var wordFileDIff1 = File.ReadAllLines("Words Level 1.txt");
+                    var wordFileDIff2 = File.ReadAllLines("Words Level 2.txt");
+                    var wordFileDIff3 = File.ReadAllLines("Words Level 3.txt");
+
+                    switch (difficulty)
+                    {
+                        case 1:
+                            foreach (var s in wordFileDIff1)
+                                words.Add(s);
+                            break;
+
+                        case 2:
+                            foreach (var s in wordFileDIff2)
+                                words.Add(s);
+                            break;
+
+                        case 3:
+                            foreach (var s in wordFileDIff3)
+                                words.Add(s);
+                            break;
+
+
+                    }
+
+                    //Ensure displaying word has as numnber of dashes as seceret word
+                    string word = words[rand.Next(0, words.Count)];
+                    switch (word.Length)
+                    {
+                        case 7: displayWord = "_ _ _ _"; break;
+                        case 9: displayWord = "_ _ _ _ _"; break;
+                        case 11: displayWord = "_ _ _ _ _ _"; break;
+                        case 13: displayWord = "_ _ _ _ _ _ _"; break;
+                        case 15: displayWord = "_ _ _ _ _ _ _ _"; break;
+                        case 17: displayWord = "_ _ _ _ _ _ _ _ _"; break;
+                    }
+                }
+               
+
                 Thread.Sleep(1000);
                 Console.WriteLine();
                 Console.WriteLine(displayWord);
@@ -99,29 +129,26 @@ namespace Part_8._5___Hangman
                     Console.WriteLine("Press Enter to Play Again");
                     Console.ReadLine();
                     incorrect = 0;
-                    word = words[rand.Next(0, words.Count)];
-                    switch (word.Length)
-                    {
-                        case 7: displayWord = "_ _ _ _"; break;
-                        case 9: displayWord = "_ _ _ _ _"; break;
-                        case 11: displayWord = "_ _ _ _ _ _"; break;
-                        case 13: displayWord = "_ _ _ _ _ _ _"; break;
-                        case 15: displayWord = "_ _ _ _ _ _ _ _"; break;
-
-
-                    }
+                    Console.Clear();
+                    createWord = true;
+                   
+                
                 }
-
-                switch (incorrect)
+                else
                 {
-                    case 0: DrawManNormal(); break;
-                    case 1: DrawMan1(); ; break;
-                    case 2: DrawMan2(); break;
-                    case 3: DrawMan3(); break;
-                    case 4: DrawMan4(); break;
-                    case 5: DrawMan5(); break;
-                    case 6: DrawManDead(); break;
-                }                   
+                    createWord = false;
+                    switch (incorrect)
+                    {
+                        case 0: DrawManNormal(); break;
+                        case 1: DrawMan1(); ; break;
+                        case 2: DrawMan2(); break;
+                        case 3: DrawMan3(); break;
+                        case 4: DrawMan4(); break;
+                        case 5: DrawMan5(); break;
+                        case 6: DrawManDead(); break;
+                }
+            }
+             
             }
             while (!done);            
         }
@@ -150,8 +177,7 @@ namespace Part_8._5___Hangman
         {
             Console.WriteLine("  +---+\r\n  |   |\r\n  O   |\r\n /|\\  |\r\n /    |\r\n      |\r\n=========");
 
-        }
-        
+        }        
         static void DrawManDead()
         {
             Console.WriteLine("  +---+\r\n  |   |\r\n  O   |\r\n /|\\  |\r\n / \\  |\r\n      |\r\n=========");
@@ -160,6 +186,7 @@ namespace Part_8._5___Hangman
         {
             Console.WriteLine("  +---+\r\n      |\r\n      | \r\n \\O/  |\r\n  |   |\r\n / \\  |\r\n=========");
         }
+        
         
     }
 }
