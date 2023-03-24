@@ -9,77 +9,101 @@ namespace Part_8._5___Hangman
         static void Main(string[] args)
         {
             Random rand = new Random();
-            int incorrect, difficulty;
+            int incorrect, difficulty, multiplayer;
             bool done, createWord;
             createWord = true;
             done = false;
             incorrect = 0;
-            string userLetter;
+
+            string userLetter ;
             string word = "";
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.Clear();
             string displayWord = "";
+
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.Clear();
             
-            
+            List<string> words = new List<string>();
+            List<string> usedLetters = new List<string>();
+
             Console.WriteLine("Welcome to Hangman!");
-            Rest();
             Console.WriteLine();
+            Rest();
             Console.WriteLine("Try to guess my Seceret Word");
-            Rest();
             Console.WriteLine();
+            Rest(); ;
             Console.WriteLine("You get 7 guesses to get it right");
-            Rest();
             Console.WriteLine();
+            Rest();
             Console.WriteLine("Every wrong guess, a limb gets added to the Hangman");
-            Rest();
             Console.WriteLine();
-            
+            Rest();
+
             do
             {   if (createWord == true)
                 {
-                    Console.WriteLine("What difficulty would you like to play on");
-                    Console.WriteLine("1 - Easy");
-                    Console.WriteLine("2 - Medium");
-                    Console.WriteLine("3 - Hard");
-                    Console.Write("Choice: ");
-                    while (!Int32.TryParse(Console.ReadLine(), out difficulty))
-                        Console.Write("Please Enter 1, 2 or 3? ");
-                    //if (difficulty > 3)
-                    //    difficulty = 3;
-                    //else if (difficulty < 0)
-                    //    difficulty = 0;
-                    List<string> words = new List<string>();
+                    
+                    Console.WriteLine("Would you like to play 1 or 2 player Hangman?");
+                    while (!Int32.TryParse(Console.ReadLine(), out multiplayer))
+                        Console.Write("Please Enter 1 or 2? ");
+                    Console.WriteLine();
+                    Rest();
 
-                    //Choose Scerect word based on difficulty
-                    var wordFileDIff1 = File.ReadAllLines("Words Level 1.txt");
-                    var wordFileDIff2 = File.ReadAllLines("Words Level 2.txt");
-                    var wordFileDIff3 = File.ReadAllLines("Words Level 3.txt");
-                    var test = File.ReadAllLines("tester.txt");
-
-                    switch (difficulty)
+                    if (multiplayer == 1)
                     {
-                        case 1:
-                            foreach (var s in wordFileDIff1)
-                                words.Add(s);
-                            break;
+                        Console.WriteLine("--Singleplayer Hangman--");
+                        Console.WriteLine("What difficulty would you like to play on");
+                        Console.WriteLine("1 - Easy");
+                        Console.WriteLine("2 - Medium");
+                        Console.WriteLine("3 - Hard");
+                        Console.Write("Choice: ");
+                        while (!Int32.TryParse(Console.ReadLine(), out difficulty))
+                            Console.Write("Please Enter 1, 2 or 3? ");
+                        if (difficulty > 3)
+                            difficulty = 3;
+                        else if (difficulty < 0)
+                            difficulty = 0;
 
-                        case 2:
-                            foreach (var s in wordFileDIff2)
-                                words.Add(s);
-                            break;
 
-                        case 3:
-                            foreach (var s in wordFileDIff3)
-                                words.Add(s);
-                            break;
-                        case 4:
-                            foreach (var s in test)
-                                words.Add(s);
-                            break;
 
+                        //Choose Scerect word based on difficulty
+                        var wordFileDIff1 = File.ReadAllLines("Words Level 1.txt");
+                        var wordFileDIff2 = File.ReadAllLines("Words Level 2.txt");
+                        var wordFileDIff3 = File.ReadAllLines("Words Level 3.txt");
+
+
+                        switch (difficulty)
+                        {
+                            case 1:
+                                Console.WriteLine("Difficulty is set to Easy");
+                                foreach (var s in wordFileDIff1)
+                                    words.Add(s);
+                                break;
+
+                            case 2:
+                                Console.WriteLine("Difficulty is set to Medium");
+                                foreach (var s in wordFileDIff2)
+                                    words.Add(s);
+                                break;
+
+                            case 3:
+                                Console.WriteLine("Difficulty is set to Hard");
+                                foreach (var s in wordFileDIff3)
+                                    words.Add(s);
+                                break;
+
+                        }
+                    }
+                    else if (multiplayer == 2)
+                    {
+                        Console.WriteLine("--Multiplayer Hangman--");
+                        Console.WriteLine();
+                        Rest();
+                        Console.Write("Enter a Secert Word: ");
+                        words[0] = Console.ReadLine();
 
                     }
+                   
 
                     //Ensure displaying word has as numnber of dashes as seceret word
                     word = words[rand.Next(0, words.Count)];
@@ -96,21 +120,32 @@ namespace Part_8._5___Hangman
                         case 21: displayWord = "_ _ _ _ _ _ _ _ _ _ _"; break;
                     }
                 }
+                
 
-
-                Rest();
                 Console.WriteLine();
+                Rest();
                 Console.WriteLine(displayWord);
-                Rest();
                 Console.WriteLine();
+                Rest();
+                Console.Write($"Letters Used: ");
+                foreach (string l in usedLetters)
+                    Console.Write($"{l}, ");
+                Console.WriteLine();
+                Console.WriteLine();
+                Rest();
+                
                 do
                 {
-                    Console.Write("Enter a Letter: ");
-                    userLetter = Console.ReadLine().ToUpper();
+                    do
+                    {
+                        Console.Write("Enter a Letter: ");
+                        userLetter = Console.ReadLine().ToUpper();
+                    }
+                    while (usedLetters.Contains(userLetter));
                     
                 }
                 while (userLetter.Length > 1);
-
+                usedLetters.Add(userLetter);
 
 
                 char[] charArr = userLetter.ToCharArray();
@@ -141,28 +176,28 @@ namespace Part_8._5___Hangman
                             word = word.Remove(word.IndexOf(userLetter), 1);
                             word = word.Insert(previousIndex, userLetter);
                         }
-                        word = previousWord;
-
-
-                        Console.WriteLine(word);
+                        word = previousWord;                        
                     }
                 }
                 else
                 {
                     incorrect++;
-                    Rest();
                     Console.WriteLine();
+                    Rest();
                     Console.WriteLine("That Letter is not in the Word");
                 }
 
 
                 if (displayWord == word)
                 {
-                    Win();
+                    Console.WriteLine();
+                    Rest();
+                    Console.WriteLine(displayWord);
+                    Win();                    
                     incorrect = 0;
+                    usedLetters.Clear();
                     Console.Clear();
-                    createWord = true;
-                   
+                    createWord = true;                
                 
                 }
                 else
@@ -180,15 +215,16 @@ namespace Part_8._5___Hangman
                         case 5: DrawMan5();  break;
                         case 6: DrawManDead(); Console.WriteLine("One More Chance!"); break;
                         case 7:
-                            Rest();
                             Console.WriteLine();
+                            Rest();
                             Console.WriteLine($"The word was {word}");
                             Lose();
                             incorrect = 0;
+                            usedLetters.Clear();
                             Console.Clear();
 
-                            Rest();
                             Console.WriteLine();
+                            Rest();
                             createWord = true;
                             break;
                     }
@@ -234,24 +270,24 @@ namespace Part_8._5___Hangman
         }
         static void Lose()
         {
-            Rest();
             Console.WriteLine();
-            Console.WriteLine("You ran out of guesses :(");
             Rest();
-            Console.WriteLine();           
+            Console.WriteLine("You ran out of guesses :(");
+            Console.WriteLine();
+            Rest();
             Console.WriteLine("Press Enter to Play Again");
             Console.ReadLine();
         }
         static void Win()
         {
-            Rest();
             Console.WriteLine();
+            Rest();
             Console.WriteLine("You got the word Right!");
-            Rest();
             Console.WriteLine();
+            Rest();
             DrawManAlive();
-            Rest();
             Console.WriteLine();
+            Rest();
             Console.WriteLine("Press Enter to Play Again");
             Console.ReadLine();
         }
