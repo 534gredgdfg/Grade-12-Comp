@@ -26,13 +26,10 @@ namespace Part_8._5___Hangman
             List<string> words = new List<string>();
             List<string> usedLetters = new List<string>();
 
-            Console.WriteLine("Welcome to Hangman!");
+            Console.WriteLine("   WELCOME to HANGMAN!   ");
             Console.WriteLine();
-            Rest();
-            Console.WriteLine("Try to guess my Seceret Word");
-            Console.WriteLine();
-            Rest(); ;
-            Console.WriteLine("You get 7 guesses to get it right");
+            Rest();         
+            Console.WriteLine("You get 7 guesses to get the word right");
             Console.WriteLine();
             Rest();
             Console.WriteLine("Every wrong guess, a limb gets added to the Hangman");
@@ -43,9 +40,16 @@ namespace Part_8._5___Hangman
             {   if (createWord == true)
                 {
                     
-                    Console.WriteLine("Would you like to play 1 or 2 player Hangman?");
+                    Console.WriteLine("Would you like to play Singleplayer or Multiplayer player Hangman?");
+                    Console.WriteLine("1 - Singleplayer");
+                    Console.WriteLine("2 - Multiplayer");
+                    Console.Write("Choice: ");
                     while (!Int32.TryParse(Console.ReadLine(), out multiplayer))
                         Console.Write("Please Enter 1 or 2? ");
+                    if (multiplayer > 2)
+                        multiplayer = 2;
+                    else if (multiplayer < 0)
+                        multiplayer = 0;
                     Console.WriteLine();
                     Rest();
 
@@ -56,20 +60,26 @@ namespace Part_8._5___Hangman
                         Console.WriteLine("1 - Easy");
                         Console.WriteLine("2 - Medium");
                         Console.WriteLine("3 - Hard");
+                        Console.WriteLine("4 - Impossible");
                         Console.Write("Choice: ");
                         while (!Int32.TryParse(Console.ReadLine(), out difficulty))
-                            Console.Write("Please Enter 1, 2 or 3? ");
-                        if (difficulty > 3)
-                            difficulty = 3;
+                            Console.Write("Please Enter 1, 2, 3 or 4? ");
+                        if (difficulty > 4)
+                            difficulty = 4;
                         else if (difficulty < 0)
                             difficulty = 0;
 
-
+                        Console.WriteLine();
+                        Rest();
+                        Console.WriteLine("Try to guess my Seceret Word");
+                        Console.WriteLine();
+                        Rest();
 
                         //Choose Scerect word based on difficulty
                         var wordFileDIff1 = File.ReadAllLines("Words Level 1.txt");
                         var wordFileDIff2 = File.ReadAllLines("Words Level 2.txt");
                         var wordFileDIff3 = File.ReadAllLines("Words Level 3.txt");
+                        var impossible = File.ReadAllLines("tester.txt");
 
 
                         switch (difficulty)
@@ -91,37 +101,61 @@ namespace Part_8._5___Hangman
                                 foreach (var s in wordFileDIff3)
                                     words.Add(s);
                                 break;
+                            case 4:
+                                Console.WriteLine("Difficulty is set to Impossible");
+                                Console.WriteLine("Good Luck");
+                                foreach (var s in impossible)
+                                    words.Add(s);
+                                break;
 
                         }
+                    word = words[rand.Next(0, words.Count)];
                     }
                     else if (multiplayer == 2)
                     {
                         Console.WriteLine("--Multiplayer Hangman--");
                         Console.WriteLine();
+                        Rest();                        
+                        Console.WriteLine("One person enter a word. The other guesses");
+                        Console.WriteLine();
                         Rest();
+
                         Console.Write("Enter a Secert Word: ");
-                        words[0] = Console.ReadLine();
+                        var pass = string.Empty;
+                        ConsoleKey key;
+                        do
+                        {
+                            var keyInfo = Console.ReadKey(intercept: true);
+                            key = keyInfo.Key;
+
+                            if (key == ConsoleKey.Backspace && pass.Length > 0)
+                            {
+                                Console.Write("\b \b");
+                                pass = pass[0..^1];
+                            }
+                            else if (!char.IsControl(keyInfo.KeyChar))
+                            {
+                                Console.Write("*");
+                                pass += keyInfo.KeyChar;
+                            }
+                        } while (key != ConsoleKey.Enter);                       
+                        word = pass.ToUpper();
+
+                    for (int i = 1; i < word.Length; i += 2)
+                        {
+                            word = word.Insert(i, " ");
+                        }
 
                     }
-                   
-
-                    //Ensure displaying word has as numnber of dashes as seceret word
-                    word = words[rand.Next(0, words.Count)];
-                    switch (word.Length)
+                    //Ensure displaying word has as number of dashes as seceret word
+                    for (int i = 0; i < word.Length; i++)
                     {
-                        case 5: displayWord = "_ _ _"; break;
-                        case 7: displayWord = "_ _ _ _"; break;
-                        case 9: displayWord = "_ _ _ _ _"; break;
-                        case 11: displayWord = "_ _ _ _ _ _"; break;
-                        case 13: displayWord = "_ _ _ _ _ _ _"; break;
-                        case 15: displayWord = "_ _ _ _ _ _ _ _"; break;
-                        case 17: displayWord = "_ _ _ _ _ _ _ _ _"; break;
-                        case 19: displayWord = "_ _ _ _ _ _ _ _ _ _"; break;
-                        case 21: displayWord = "_ _ _ _ _ _ _ _ _ _ _"; break;
-                    }
-                }
-                
-
+                        if (i % 2 != 0)                        
+                            displayWord = displayWord.Insert(i, " ");                        
+                        else
+                            displayWord = displayWord.Insert(i, "_");
+                    }                   
+                }               
                 Console.WriteLine();
                 Rest();
                 Console.WriteLine(displayWord);
@@ -195,6 +229,8 @@ namespace Part_8._5___Hangman
                     Console.WriteLine(displayWord);
                     Win();                    
                     incorrect = 0;
+                    displayWord = "";
+                    words.Clear();
                     usedLetters.Clear();
                     Console.Clear();
                     createWord = true;                
@@ -220,6 +256,8 @@ namespace Part_8._5___Hangman
                             Console.WriteLine($"The word was {word}");
                             Lose();
                             incorrect = 0;
+                            displayWord = "";
+                            words.Clear();
                             usedLetters.Clear();
                             Console.Clear();
 
