@@ -79,7 +79,7 @@ namespace Part_8._5___Hangman
                         var wordFileDIff1 = File.ReadAllLines("Words Level 1.txt");
                         var wordFileDIff2 = File.ReadAllLines("Words Level 2.txt");
                         var wordFileDIff3 = File.ReadAllLines("Words Level 3.txt");
-                        var impossible = File.ReadAllLines("tester.txt");
+                        var impossible = File.ReadAllLines("Impossible Level.txt");
 
 
                         switch (difficulty)
