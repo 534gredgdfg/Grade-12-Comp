@@ -20,7 +20,7 @@ namespace Part_8._5___Hangman
             string displayWord = "";
 
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.BackgroundColor = ConsoleColor.Gray;
             Console.Clear();
             
             List<string> words = new List<string>();
