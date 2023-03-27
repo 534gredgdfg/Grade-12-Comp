@@ -40,7 +40,7 @@ namespace Part_8._5___Hangman
             {   if (createWord == true)
                 {
                     
-                    Console.WriteLine("Would you like to play Singleplayer or Multiplayer player Hangman?");
+                    Console.WriteLine("Would you like to play Singleplayer or Multiplayer Hangman?");
                     Console.WriteLine("1 - Singleplayer");
                     Console.WriteLine("2 - Multiplayer");
                     Console.Write("Choice: ");
@@ -66,8 +66,8 @@ namespace Part_8._5___Hangman
                             Console.Write("Please Enter 1, 2, 3 or 4? ");
                         if (difficulty > 4)
                             difficulty = 4;
-                        else if (difficulty < 0)
-                            difficulty = 0;
+                        else if (difficulty < 1)
+                            difficulty = 1;
 
                         Console.WriteLine();
                         Rest();
@@ -330,9 +330,8 @@ namespace Part_8._5___Hangman
             Console.ReadLine();
         }
         static void Rest()
-        {
-            int restTime = 1000;
-            Thread.Sleep(restTime);
+        {            
+            Thread.Sleep(1000);
 
         }
 
