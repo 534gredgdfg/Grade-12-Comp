@@ -10,12 +10,14 @@ namespace Part_2___Scaling
         private SpriteBatch _spriteBatch;
         Rectangle head, eye1, eye2, blackEye1, blackEye2, mouth;
         Texture2D  whiteBackroundTexture, circleTexture, squareTexture;
+        SpriteFont speakingFont;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
            
         }
 
@@ -24,10 +26,10 @@ namespace Part_2___Scaling
             // TODO: Add your initialization logic here\
             head = new Rectangle(0, 0, 600, 600);
 
-            eye1 = new Rectangle(150, 150, 50, 50);
+            eye1 = new Rectangle(200, 150, 50, 50);
             eye2 = new Rectangle(350, 150, 50, 50);
 
-            blackEye1 = new Rectangle(160, 150, 20, 20);
+            blackEye1 = new Rectangle(210, 150, 20, 20);
             blackEye2 = new Rectangle(360, 150, 20, 20);
 
             mouth = new Rectangle(150, 400, 300, 40);
@@ -47,7 +49,7 @@ namespace Part_2___Scaling
             circleTexture = Content.Load<Texture2D>("circle");
             squareTexture = Content.Load<Texture2D>("rectangle");
             whiteBackroundTexture = Content.Load<Texture2D>("white+square");
-            
+            speakingFont = Content.Load<SpriteFont>("Text");
         }
 
         protected override void Update(GameTime gameTime)
@@ -76,7 +78,7 @@ namespace Part_2___Scaling
             _spriteBatch.Draw(circleTexture, blackEye2, Color.Black);
 
             _spriteBatch.Draw(squareTexture, mouth, Color.White);
-
+            _spriteBatch.DrawString(speakingFont, "Owen", new Vector2(10, 10), Color.Black);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
