@@ -8,10 +8,13 @@ namespace Part_2___Scaling
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        Rectangle head, eye1, eye2, blackEye1, blackEye2, mouth;
+        Rectangle head, eye1, eye2, blackEye1, blackEye2, mouth, redSpot1, redSpot2, nose;
         Texture2D  whiteBackroundTexture, circleTexture, squareTexture;
         SpriteFont speakingFont;
-
+        int movingEye1 = 200;       
+        int movingEye2 = 350;
+        int  moved;
+        int moving = 1;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -24,15 +27,20 @@ namespace Part_2___Scaling
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here\
-            head = new Rectangle(0, 0, 600, 600);
 
-            eye1 = new Rectangle(200, 150, 50, 50);
-            eye2 = new Rectangle(350, 150, 50, 50);
+            head = new Rectangle(50, 0, 500, 600);
+
+            eye1 = new Rectangle(200, 150, 60, 50);
+            eye2 = new Rectangle(350, 150, 60, 50);
 
             blackEye1 = new Rectangle(210, 150, 20, 20);
             blackEye2 = new Rectangle(360, 150, 20, 20);
 
-            mouth = new Rectangle(150, 400, 300, 40);
+            redSpot1 = new Rectangle(100, 300, 80, 80);
+            redSpot2 = new Rectangle(420, 300, 80, 80);
+
+            mouth = new Rectangle(150, 450, 300, 65);
+            nose = new Rectangle(275, 250, 50, 100);
 
             _graphics.PreferredBackBufferWidth = 600; // Sets the width of the window
             _graphics.PreferredBackBufferHeight = 600; // Sets the height of the window
@@ -58,7 +66,20 @@ namespace Part_2___Scaling
                 Exit();
 
             // TODO: Add your update logic here
+            
+            movingEye1 += moving;
+            movingEye2 += moving;
+            moved += 1;
+            if (moved >= 40)
+            {
+                
+                moving *= -1;
+                moved = 0;
+            }
 
+
+            blackEye1 = new Rectangle(movingEye1, 160, 20, 20);
+            blackEye2 = new Rectangle(movingEye2, 160, 20, 20);
             base.Update(gameTime);
         }
 
@@ -68,16 +89,21 @@ namespace Part_2___Scaling
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(whiteBackroundTexture, new Rectangle(0, 0, 600, 600), Color.White);
             
-            _spriteBatch.Draw(circleTexture, head, Color.Red);
-            _spriteBatch.Draw(circleTexture, eye1, Color.White);
-            _spriteBatch.Draw(circleTexture, eye2, Color.White);
+            
+            _spriteBatch.Draw(circleTexture, head, Color.White);
+            _spriteBatch.Draw(circleTexture, eye1, Color.Gray);
+            _spriteBatch.Draw(circleTexture, eye2, Color.Gray);
 
             _spriteBatch.Draw(circleTexture, blackEye1, Color.Black);
             _spriteBatch.Draw(circleTexture, blackEye2, Color.Black);
 
-            _spriteBatch.Draw(squareTexture, mouth, Color.White);
+            _spriteBatch.Draw(circleTexture, redSpot1, Color.Red);
+            _spriteBatch.Draw(circleTexture, redSpot2, Color.Red);
+
+            _spriteBatch.Draw(circleTexture, mouth, Color.Gray);
+            _spriteBatch.Draw(squareTexture, nose, Color.Gray);
+
             _spriteBatch.DrawString(speakingFont, "Owen", new Vector2(10, 10), Color.Black);
             _spriteBatch.End();
             base.Draw(gameTime);
